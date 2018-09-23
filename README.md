@@ -2,7 +2,8 @@
 
 ## Task
 
-Implement function `solveSudoku(matrix)`, that for given incomplete matrix will return solved sudoku. `0` means `no value`
+Implement function `solveSudoku(matrix)`, that for given incomplete matrix will return solved sudoku.
+`0` means `no value`
 
 [What is sudoku?](https://en.wikipedia.org/wiki/Sudoku)
 
