@@ -87,6 +87,7 @@ module.exports = function solveSudoku(matrix) {
   /////////////////////
   while (resolve === 'solving') {
 
+    //pure pass
     for (let i = 0; i < 9; i++) {
       if (isCollission) break;
       let changed = false;
@@ -94,7 +95,6 @@ module.exports = function solveSudoku(matrix) {
       if (lostNumbers.length === 0) continue;
       else if (lostNumbers.length === 1) {
         fillOneNumber(i, lostNumbers[0]);
-        // log('ji ' + i);
         changed = true;
       }
       else {
@@ -114,6 +114,7 @@ module.exports = function solveSudoku(matrix) {
       missNumbers.push(getLostNumbers(i));
     }
 
+    //check on full written sudoku
     if (missNumbers.filter(item => item.length === 0).length === 9) {
       // log(matrix);
       return matrix;
@@ -122,38 +123,21 @@ module.exports = function solveSudoku(matrix) {
     if (arraySolutions.length === 0) arraySolutions = missNumbers;
     if (matrixUntilCollision.length === 0) matrixUntilCollision = matrix;
 
-    // log(isCollission);
     //if get stuck
     if (isCollission) {
       matrix = matrixUntilCollision;
       let minNulls = getMinCountNulls(arraySolutions);
-      fillOneNumber(minNulls,arraySolutions[minNulls][0]);
+      fillOneNumber(minNulls,arraySolutions[minNulls][1]);
       arraySolutions[minNulls].shift();
       isCollission = false;
     } else {
-      // log(matrix);
       let minNulls = getMinCountNulls(missNumbers);
       fillOneNumber(minNulls,missNumbers[minNulls][0]);
     }
 
-    // let itemOpportunity = getOportunities(minNulls, missNumbers[minNulls]);
-    // let itemMaxOpportunity = Math.max.apply(null, itemOpportunity);
-    // let itemIndex = itemMaxOpportunity;
-    // for (let i = 0; i < itemOpportunity.length; i++) {
-    //   if (itemMaxOpportunity === itemOpportunity[i]) itemIndex = i;
-    // }
-    // let itemChange = itemOpportunity[itemIndex];//  !!!
-    // log(itemOpportunity);
-    // log(itemMaxOpportunity);
-    // log(itemIndex);
-    // log(itemChange);
-    // log(missNumbers[minNulls]);
-    // log(minNulls);
-    // log(matrix);
-
-    if (arraySolutions.filter(item => item.length !== 0).length === 0) resolve = 'unresolve';;
+    if (arraySolutions.filter(item => item.length !== 0).length === 0) resolve = 'unresolve';
 
   }
-  // log(matrix);
+
   return matrix;
 };
